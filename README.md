@@ -1,4 +1,4 @@
-# diab-hos-pat
+# Diabetes Patient Assistant
 R Shiny Web Application analyzing both patient and hospital diabetes information
 
 General Description: 
