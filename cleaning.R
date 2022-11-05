@@ -1,0 +1,1 @@
+# This file contains cleaning functions for reference prior to storage in MySQL workbench
