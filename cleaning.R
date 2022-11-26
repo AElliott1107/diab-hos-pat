@@ -72,3 +72,39 @@ head(glucose)
 dbGetQuery(diabdb, 'PRAGMA table_info(glucose)')
 summary(glucose)
 str(glucose)
+
+#Loading Hospital data from local csv
+hospital <- read.csv("data/diabetic_data.csv", header = TRUE)
+head(hospital)
+
+#Cleaning overall hospital data
+hospital <-replace(hospital, hospital == "?", NA)
+table(complete.cases(hospital))
+hospital <- select(hospital, -6, -11, -12)
+hospital$race[is.na(hospital$race)] <- "Not Captured"
+table(complete.cases(hospital))
+prop.table(table(complete.cases(hospital))) * 100
+
+#Writing hospital data to database and testing with query
+dbWriteTable(diabdb, "hospital", hospital, overwrite = TRUE)
+dbGetQuery(diabdb, 'SELECT * FROM hospital LIMIT 5')
+head(hospital)
+dbGetQuery(diabdb, 'PRAGMA table_info(hospital)')
+summary(hospital)
+str(hospital)
+
+#Creating encoded dataframe for decision tree
+hos_dt <- subset(hospital, select=c(3:15, 19:21, 45:47))
+table(complete.cases(hos_dt))
+library(caret)
+dummy <- dummyVars(" ~ .", data=hos_dt)
+hos_dt_encoded <- data.frame(predict(dummy, newdata = hos_dt))
+head(hos_dt_encoded)
+
+#Writing encoded data to database
+dbWriteTable(diabdb, "hos_encoded", hos_dt_encoded, overwrite = TRUE)
+dbGetQuery(diabdb, 'SELECT * FROM hos_encoded LIMIT 5')
+head(hos_dt_encoded)
+dbGetQuery(diabdb, 'PRAGMA table_info(hos_encoded)')
+summary(hos_dt_encoded)
+str(hos_dt_encoded)

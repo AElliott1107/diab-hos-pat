@@ -30,7 +30,7 @@ tabPanel(strong("About"),
            )
          )
 ),
-# Second tab panel - you can demo some visualization
+# Second tab panel - Glucose Information
   tabPanel(strong("Daily Blood Sugar Information"),
            fluidPage(
              titlePanel("My Plot")),
@@ -49,7 +49,7 @@ tabPanel(strong("About"),
     )
   ),
 
-# Third tab panel you can present EDA
+# Third tab panel Hospital Information
   tabPanel(strong("Hospital Information"),
            fluidPage(
              titlePanel("My Summary")),
