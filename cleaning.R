@@ -108,3 +108,6 @@ head(hos_dt_encoded)
 dbGetQuery(diabdb, 'PRAGMA table_info(hos_encoded)')
 summary(hos_dt_encoded)
 str(hos_dt_encoded)
+
+#Check full list of tables
+dbGetQuery(diabdb, 'PRAGMA table_list')

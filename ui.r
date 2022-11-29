@@ -1,14 +1,14 @@
 library(shiny)
-
 library(markdown)
+library(shinythemes)
 
-navbarPage("Diabetes Patient Assistant",     
+navbarPage(title = "Diabetes Patient Assistant", theme = shinytheme("cerulean"),     
              
 ### TABS
-# First Panel - About the data
-tabPanel(strong("About"),
+# First Panel - About the data - Still need to complete this page!
+tabPanel(strong("Home"),
          fluidPage(
-           titlePanel("About")),
+           titlePanel("Home Page")),
          br(),
          hr(),
          fluidRow(
@@ -30,21 +30,23 @@ tabPanel(strong("About"),
            )
          )
 ),
-# Second tab panel - Glucose Information
-  tabPanel(strong("Daily Blood Sugar Information"),
+# Second tab panel - Blood Glucose Data
+  tabPanel(strong("Blood Glucose Data"),
            fluidPage(
-             titlePanel("My Plot")),
+             titlePanel("Daily Blood Sugar Information")),
            br(),
            hr(),
     sidebarLayout(
       sidebarPanel(
-        radioButtons("plotType", "Plot type",
-          c("Scatter"="p", "Line"="l")
-        )
+        dateRangeInput(
+          inputId = "date_range",
+          label = "Date Range:",
+          start = "1988-01-01",
+          end = "1992-01-01"
+        ),
       ),
       mainPanel(
-        
-        plotOutput("plot")
+        plotOutput("gluPlot")
       )
     )
   ),
