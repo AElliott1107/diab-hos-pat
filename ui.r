@@ -44,6 +44,13 @@ tabPanel(strong("Home"),
           start = "1988-01-01",
           end = "1992-01-01"
         ),
+        selectInput(
+          inputId = 'code_type',
+          label = 'Measurement Category:',
+          choices = c('All' = 1, 'Breakfast' = 2, 'Lunch' = 3, 'Dinner' = 4, 
+                      'Pre Meal' = 5, 'Post Meal' = 6, 'Miscellaneous' = 7),
+          selected = 'All'
+        ),
       ),
       mainPanel(
         plotOutput("gluPlot")
@@ -55,9 +62,23 @@ tabPanel(strong("Home"),
   tabPanel(strong("Hospital Information"),
            fluidPage(
              titlePanel("My Summary")),
-           br(),
            hr(),
-    verbatimTextOutput("summary")
+    fluidRow(
+      align = 'center',
+      column(
+        width = 4,
+        plotOutput('agePlot')
+      ),
+      column(
+        width = 4,
+        plotOutput('genderPlot')
+      ),
+      column(
+        width = 4,
+        plotOutput('timeHist')
+      ),
+    ),
+    
   )
 
 ## you can add more tabs, do not forget to add comma to the previous tab if you continue
