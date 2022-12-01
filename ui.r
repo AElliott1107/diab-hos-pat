@@ -56,7 +56,7 @@ tabPanel(strong("Home"),
 # Third tab panel Hospital Information
   tabPanel(strong("Hospital Information"),
            fluidPage(
-             titlePanel("My Summary"),
+             titlePanel("Hospital Patient Summary"),
              br(),
              hr(),
              fluidRow(
