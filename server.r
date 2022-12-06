@@ -23,7 +23,7 @@ diabdb <- dbConnect(RSQLite::SQLite(), "diabetes-db.sqlite", extended_types = TR
 gludb <- dbGetQuery(
   conn = diabdb,
   statement = 
-    'SELECT * FROM glucose',
+    'SELECT * FROM glucose'
 )
 
 #Query for hospital plot
@@ -58,6 +58,7 @@ function(input, output, session) {
   output$gluPlot <- renderPlot({
     #params = list(format(input$date_range[1], format = "%Y-%m-%d"),format(input$date_range[2], format = "%Y-%m-%d"))
     glu_meas <- filter(gludb, gludb$Code %in% c(code_list[[strtoi(input$code_type)]]))
+    glu_meas %>% filter(between(glu_meas$Date,input$date_range[1], input$date_range[2]))
     meas_plot <- glu_meas %>%
       mutate(time = as.POSIXct(hms::parse_hm(glu_meas$Time))) %>%
       ggplot(aes(x = time, y = Value)) +
